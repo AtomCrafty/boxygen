@@ -27,7 +27,7 @@ namespace BoxView {
 
 			var list = new RenderList();
 			Box1.Gather(list);
-			//Box2.Gather(list);
+			Box2.Gather(list);
 			Box3.Gather(list);
 			list.Draw(e.Graphics, new Vec2(256, 256));
 			return;

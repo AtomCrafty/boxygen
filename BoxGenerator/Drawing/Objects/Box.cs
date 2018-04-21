@@ -96,7 +96,7 @@ namespace Boxygen.Drawing.Objects {
 			Front.Gather(list);
 
 			//FlapLeft.Gather(list);
-			FlapFront.Gather(list);
+			//FlapFront.Gather(list);
 			//FlapRight.Gather(list);
 			//FlapBack.Gather(list);
 
