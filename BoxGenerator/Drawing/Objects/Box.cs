@@ -61,11 +61,11 @@ namespace Boxygen.Drawing.Objects {
 				v7 = new Vertex(new Vec3( sx,  sy, sz)),
 			};
 
-			Back = new Face(v1, v5, v6, v2) { BaseBrush = new SolidBrush(colors[3]), Name = Name + " " + nameof(Back) };
-			Right = new Face(v3, v2, v6, v7) { BaseBrush = new SolidBrush(colors[4]), Name = Name + " " + nameof(Right) };
-			Bottom = new Face(v0, v3, v2, v1) { BaseBrush = new SolidBrush(colors[0]), Name = Name + " " + nameof(Bottom) };
-			Front = new Face(v0, v3, v7, v4) { BaseBrush = new SolidBrush(colors[1]), Name = Name + " " + nameof(Front) };
-			Left = new Face(v1, v0, v4, v5) { BaseBrush = new SolidBrush(colors[2]), Name = Name + " " + nameof(Left) };
+			Back = new Face(v2, v1, v6) { Fill = new SolidBrush(colors[3]), Name = Name + " " + nameof(Back) };
+			Right = new Face(v3, v2, v7) { Fill = new SolidBrush(colors[4]), Name = Name + " " + nameof(Right) };
+			Bottom = new Face(v0, v1, v3) { Fill = new SolidBrush(colors[0]), Name = Name + " " + nameof(Bottom) };
+			Front = new Face(v0, v3, v4) { Fill = new SolidBrush(colors[1]), Name = Name + " " + nameof(Front) };
+			Left = new Face(v1, v0, v5) { Fill = new SolidBrush(colors[2]), Name = Name + " " + nameof(Left) };
 
 			//FlapBack = new Face { BaseBrush = new SolidBrush(colors[3]), Name = Name + " " + nameof(FlapBack) };
 			//FlapRight = new Face { BaseBrush = new SolidBrush(colors[4]), Name = Name + " " + nameof(FlapRight) };

@@ -6,15 +6,16 @@ namespace Boxygen.Drawing.Primitives {
 	public class Tri : Primitive {
 		protected static readonly Point[] UnitTriangle = { new Point(0, 0), new Point(0, 1), new Point(1, 0) };
 
-		public Tri() {
+		public Tri(Vec3 o, Vec3 a, Vec3 b) : base(o, a, b) {
 			Fill = new LinearGradientBrush(new Point(0, 0), new Point(1, 1), Palette.Cardboard(7), Palette.Cardboard(1));
 		}
 
-		public override Vec3 CenterOfMass => Origin + (SpanA + SpanB) / 3;
+		public override Vec3 CenterOfMass => O + (SpanA + SpanB) / 3;
+		public override Vec3[] Vertecies => new[] { O, A, B };
 		public override double Area => (SpanA & SpanB).Length / 2;
 
 		public override void Draw(Graphics g) {
-			var o = Origin.Project();
+			var o = O.Project();
 			var a = SpanA.Project();
 			var b = SpanB.Project();
 

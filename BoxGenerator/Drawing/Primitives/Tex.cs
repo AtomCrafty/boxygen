@@ -4,14 +4,14 @@ using System.Drawing;
 namespace Boxygen.Drawing.Primitives {
 	public class Tex : Quad {
 
-		public Bitmap Texture;
+		public Image Texture;
 
-		public Tex(Bitmap texture) {
+		public Tex(Vec3 o, Vec3 a, Vec3 b, Image texture) : base(o, a, b) {
 			Texture = texture;
 		}
 
 		public override void Draw(Graphics g) {
-			var o = Origin.Project();
+			var o = O.Project();
 			var a = SpanA.Project();
 			var b = SpanB.Project();
 

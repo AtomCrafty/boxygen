@@ -10,7 +10,7 @@ namespace Boxygen.Drawing {
 		private readonly Stack<Transform> _transforms = new Stack<Transform>();
 
 		public bool RenderBackFaces = true;
-		public bool RenderNormals = false;
+		public bool RenderNormals = true;
 
 		public RenderList() {
 			_transforms.Push(Transform.Identity);

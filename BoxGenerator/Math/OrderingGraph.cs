@@ -70,8 +70,8 @@ namespace Boxygen.Math {
 			}
 
 #if DEBUG
-			Debug.Assert(front.GetDescendants().Distinct().Count() == list.Count + 1);
-			Debug.Assert(back.GetAncestors().Distinct().Count() == list.Count + 1);
+			//Debug.Assert(front.GetDescendants().Distinct().Count() == list.Count + 1);
+			//Debug.Assert(back.GetAncestors().Distinct().Count() == list.Count + 1);
 #endif
 
 			// topologically sort the graph
@@ -90,7 +90,11 @@ namespace Boxygen.Math {
 				}
 			}
 
-			return l;
+			if(!graph.Nodes.Any(n => n.Incoming.Any())) return l;
+
+			Console.WriteLine("Unable to sort polygons (cyclic dependence)");
+			// append the unsorted faces to the end of the render queue
+			return l.Concat(graph.Nodes.Select(n => n.Tag).Where(t => t != null)).Distinct().ToList();
 
 			// < 0: "node" is an ancestor of "other"
 			// = 0: no correlation
