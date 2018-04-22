@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using Boxygen.Math;
+﻿using Boxygen.Math;
+using System.Drawing;
 
 namespace Boxygen.Drawing.Primitives {
 	public class Tex : Quad {
@@ -10,9 +10,14 @@ namespace Boxygen.Drawing.Primitives {
 			Texture = texture;
 		}
 
-		public override void Draw(Graphics g, Vec2 center) {
-			g.SetTransform(center, Origin, SpanA, SpanB);
-			g.DrawImage(Texture, UnitRect);
+		public override void Draw(Graphics g) {
+			var o = Origin.Project();
+			var a = SpanA.Project();
+			var b = SpanB.Project();
+
+			var poly = new PointF[] { o, o + a, o + b };
+
+			g.DrawImage(Texture, poly);
 		}
 	}
 }

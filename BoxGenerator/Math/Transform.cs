@@ -41,6 +41,7 @@
 			}, Vec3.Zero));
 		}
 
+		public void Scale(double v) => Scale(v, v, v);
 		public void Scale(double x, double y, double z) {
 			Apply(new Matrix4(new[] {
 				x, 0, 0,

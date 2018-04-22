@@ -52,7 +52,7 @@
     <Compile Include="Drawing\Primitives\Tri.cs" />
     <Compile Include="Drawing\Primitives\Quad.cs" />
     <Compile Include="Drawing\Primitive.cs" />
-    <Compile Include="Math\Extensions.cs" />
+    <Compile Include="Drawing\Vertex.cs" />
     <Compile Include="Drawing\IDrawable.cs" />
     <Compile Include="Math\Matrix4.cs" />
     <Compile Include="Math\OrderingGraph.cs" />

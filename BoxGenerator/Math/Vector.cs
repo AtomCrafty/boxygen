@@ -60,7 +60,7 @@ namespace Boxygen.Math {
 		public static Vec2 operator -(Vec2 v) => Zero - v;
 		public static double operator |(Vec2 l, Vec2 r) => l.X * r.X + l.Y * r.Y;
 
-		public static explicit operator PointF(Vec2 v) => new PointF((float)v.X, (float)v.Y);
+		public static implicit operator PointF(Vec2 v) => new PointF((float)v.X, (float)v.Y);
 	}
 
 	public struct Vec3 {

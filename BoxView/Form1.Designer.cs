@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BoxView {
@@ -6,7 +8,7 @@ namespace BoxView {
 		/// <summary>
 		/// Erforderliche Designervariable.
 		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+		private IContainer components = null;
 
 		/// <summary>
 		/// Verwendete Ressourcen bereinigen.
@@ -26,37 +28,39 @@ namespace BoxView {
 		/// Der Inhalt der Methode darf nicht mit dem Code-Editor geändert werden.
 		/// </summary>
 		private void InitializeComponent() {
-			this.components = new System.ComponentModel.Container();
-			this.DrawTimer = new System.Windows.Forms.Timer(this.components);
-			this.Canvas = new BoxView.Display();
+			this.components = new Container();
+			this.DrawTimer = new Timer(this.components);
+			this.Canvas = new Display();
 			this.SuspendLayout();
 			// 
 			// DrawTimer
 			// 
 			this.DrawTimer.Enabled = true;
 			this.DrawTimer.Interval = 1;
-			this.DrawTimer.Tick += new System.EventHandler(this.DrawTimer_Tick);
+			this.DrawTimer.Tick += new EventHandler(this.DrawTimer_Tick);
 			// 
 			// Canvas
 			// 
-			this.Canvas.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.Canvas.Location = new System.Drawing.Point(0, 0);
+			this.Canvas.Dock = DockStyle.Fill;
+			this.Canvas.Location = new Point(0, 0);
+			this.Canvas.MinimumSize = new Size(512, 512);
 			this.Canvas.Name = "Canvas";
-			this.Canvas.Size = new System.Drawing.Size(496, 473);
+			this.Canvas.Size = new Size(512, 512);
 			this.Canvas.TabIndex = 0;
-			this.Canvas.Click += new System.EventHandler(this.Canvas_Click);
-			this.Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.PaintCanvas);
+			this.Canvas.Paint += new PaintEventHandler(this.PaintCanvas);
 			this.Canvas.MouseWheel += Canvas_MouseWheel;
 			// 
 			// Form1
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(496, 473);
+			this.AutoScaleDimensions = new SizeF(6F, 13F);
+			this.AutoScaleMode = AutoScaleMode.Font;
+			this.AutoSize = true;
+			this.ClientSize = new Size(284, 261);
 			this.Controls.Add(this.Canvas);
 			this.DoubleBuffered = true;
 			this.Name = "Form1";
 			this.Text = "Boxygen Preview";
+			this.Load += new EventHandler(this.Form1_Load);
 			this.ResumeLayout(false);
 
 		}
@@ -64,7 +68,8 @@ namespace BoxView {
 		#endregion
 
 		private Display Canvas;
-		private System.Windows.Forms.Timer DrawTimer;
+		private Timer DrawTimer;
+		public static float SuperSampleFactor = 1;
 	}
 }
 

@@ -7,10 +7,10 @@ namespace Boxygen.Drawing {
 		public Transform Transform = Transform.Identity;
 		public abstract void Gather(RenderList list);
 
-		public void Draw(Graphics g, Vec2 center) {
+		public void Draw(Graphics g) {
 			var list = new RenderList();
 			Gather(list);
-			list.Draw(g, center);
+			list.Draw(g);
 		}
 	}
 }

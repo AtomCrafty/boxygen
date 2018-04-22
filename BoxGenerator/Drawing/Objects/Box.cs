@@ -13,6 +13,8 @@ namespace Boxygen.Drawing.Objects {
 
 		public Face Back, Right, Bottom, Front, Left, FlapBack, FlapRight, FlapFront, FlapLeft;
 
+		public Vertex[] Vertecies;
+
 		public Box(double width, double depth, double height, int palette, string name = "Box") {
 			Width = width;
 			Depth = depth;
@@ -42,48 +44,34 @@ namespace Boxygen.Drawing.Objects {
 					Color.FromArgb(unchecked((int)0xff11ff11))
 				} : throw new ArgumentOutOfRangeException();
 
-			Back = new Face { BaseBrush = new SolidBrush(colors[3]), Name = Name + " " + nameof(Back) };
-			Right = new Face { BaseBrush = new SolidBrush(colors[4]), Name = Name + " " + nameof(Right) };
-			Bottom = new Face { BaseBrush = new SolidBrush(colors[0]), Name = Name + " " + nameof(Bottom) };
-			Front = new Face { BaseBrush = new SolidBrush(colors[1]), Name = Name + " " + nameof(Front) };
-			Left = new Face { BaseBrush = new SolidBrush(colors[2]), Name = Name + " " + nameof(Left) };
+			double sx = width / 2;
+			double sy = depth / 2;
+			double sz = height;
 
-			FlapBack = new Face { BaseBrush = new SolidBrush(colors[3]), Name = Name + " " + nameof(FlapBack) };
-			FlapRight = new Face { BaseBrush = new SolidBrush(colors[4]), Name = Name + " " + nameof(FlapRight) };
-			FlapFront = new Face { BaseBrush = new SolidBrush(colors[1]), Name = Name + " " + nameof(FlapFront) };
-			FlapLeft = new Face { BaseBrush = new SolidBrush(colors[2]), Name = Name + " " + nameof(FlapLeft) };
+			Vertex v0, v1, v2, v3, v4, v5, v6, v7;
 
-			Update();
-		}
+			Vertecies = new[] {
+				v0 = new Vertex(new Vec3(-sx,  sy,  0)),
+				v1 = new Vertex(new Vec3(-sx, -sy,  0)),
+				v2 = new Vertex(new Vec3( sx, -sy,  0)),
+				v3 = new Vertex(new Vec3( sx,  sy,  0)),
+				v4 = new Vertex(new Vec3(-sx,  sy, sz)),
+				v5 = new Vertex(new Vec3(-sx, -sy, sz)),
+				v6 = new Vertex(new Vec3( sx, -sy, sz)),
+				v7 = new Vertex(new Vec3( sx,  sy, sz)),
+			};
 
-		public void Update() {
-			double halfWidth = Width / 2;
-			double halfDepth = Depth / 2;
-			double flapLength = 50;
+			Back = new Face(v1, v5, v6, v2) { BaseBrush = new SolidBrush(colors[3]), Name = Name + " " + nameof(Back) };
+			Right = new Face(v3, v2, v6, v7) { BaseBrush = new SolidBrush(colors[4]), Name = Name + " " + nameof(Right) };
+			Bottom = new Face(v0, v3, v2, v1) { BaseBrush = new SolidBrush(colors[0]), Name = Name + " " + nameof(Bottom) };
+			Front = new Face(v0, v3, v7, v4) { BaseBrush = new SolidBrush(colors[1]), Name = Name + " " + nameof(Front) };
+			Left = new Face(v1, v0, v4, v5) { BaseBrush = new SolidBrush(colors[2]), Name = Name + " " + nameof(Left) };
 
-			Back.Vertecies[0].Set(-halfDepth, -halfWidth, 0);
-			Back.Vertecies[1].Set(-halfDepth, -halfWidth, Height);
-			Back.Vertecies[2].Set(-halfDepth, halfWidth, 0);
+			//FlapBack = new Face { BaseBrush = new SolidBrush(colors[3]), Name = Name + " " + nameof(FlapBack) };
+			//FlapRight = new Face { BaseBrush = new SolidBrush(colors[4]), Name = Name + " " + nameof(FlapRight) };
+			//FlapFront = new Face { BaseBrush = new SolidBrush(colors[1]), Name = Name + " " + nameof(FlapFront) };
+			//FlapLeft = new Face { BaseBrush = new SolidBrush(colors[2]), Name = Name + " " + nameof(FlapLeft) };
 
-			Right.Vertecies[0].Set(-halfDepth, -halfWidth, 0);
-			Right.Vertecies[1].Set(-halfDepth, -halfWidth, Height);
-			Right.Vertecies[2].Set(halfDepth, -halfWidth, 0);
-
-			Bottom.Vertecies[0].Set(-halfDepth, -halfWidth, 0);
-			Bottom.Vertecies[1].Set(-halfDepth, halfWidth, 0);
-			Bottom.Vertecies[2].Set(halfDepth, -halfWidth, 0);
-
-			Front.Vertecies[0].Set(halfDepth, -halfWidth, 0);
-			Front.Vertecies[1].Set(halfDepth, -halfWidth, Height);
-			Front.Vertecies[2].Set(halfDepth, halfWidth, 0);
-
-			Left.Vertecies[0].Set(-halfDepth, halfWidth, 0);
-			Left.Vertecies[1].Set(-halfDepth, halfWidth, Height);
-			Left.Vertecies[2].Set(halfDepth, halfWidth, 0);
-
-			FlapFront.Vertecies[0].Set(halfDepth, halfWidth, Height);
-			FlapFront.Vertecies[1].Set(halfDepth, -halfWidth, Height);
-			FlapFront.Vertecies[2] = FlapFront.Vertecies[0] + new Vec3(1, 0, -2).Normal * flapLength;
 		}
 
 		public override void Gather(RenderList list) {
@@ -95,10 +83,10 @@ namespace Boxygen.Drawing.Objects {
 			Right.Gather(list);
 			Back.Gather(list);
 
-			FlapLeft.Gather(list);
-			FlapFront.Gather(list);
-			FlapRight.Gather(list);
-			FlapBack.Gather(list);
+			//FlapLeft.Gather(list);
+			//FlapFront.Gather(list);
+			//FlapRight.Gather(list);
+			//FlapBack.Gather(list);
 
 			list.PopTransform();
 		}

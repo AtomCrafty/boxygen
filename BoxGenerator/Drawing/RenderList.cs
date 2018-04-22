@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using Boxygen.Math;
 
 namespace Boxygen.Drawing {
@@ -13,27 +10,32 @@ namespace Boxygen.Drawing {
 		private readonly Stack<Transform> _transforms = new Stack<Transform>();
 
 		public bool RenderBackFaces = true;
-		public bool RenderNormals = true;
+		public bool RenderNormals = false;
 
 		public RenderList() {
 			_transforms.Push(Transform.Identity);
 		}
 
-		public void Draw(Graphics g, Vec2 center) {
-			var sb = new StringBuilder("Render order:\n\n");
+		public List<Primitive> DrawInternal(Graphics g) {
 
+			// back face culling
 			if(!RenderBackFaces) _primitives.RemoveAll(p => (p.Normal | Vec3.Camera) > 0);
 
 			// topologically sort
 			var list = OrderingGraph<Primitive>.Sort(_primitives, Primitive.OrderSelector);
 
+			// draw polygons
 			foreach(var drawable in list) {
-				sb.AppendLine(drawable.ToString());
-				drawable.Draw(g, center);
-				//drawable.DrawNormals(g, center, false);
+				//sb.AppendLine(drawable.ToString());
+				drawable.Draw(g);
+				if(RenderNormals) drawable.DrawNormals(g, false);
 			}
-			Console.WriteLine();
-			g.DrawString(sb.ToString(), SystemFonts.StatusFont, Brushes.White, 10, 10);
+
+			return list;
+		}
+
+		public void Draw(Graphics g) {
+			DrawInternal(g);
 		}
 
 		public Transform Transform => _transforms.Peek();
