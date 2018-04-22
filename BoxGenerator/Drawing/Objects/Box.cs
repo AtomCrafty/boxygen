@@ -95,10 +95,10 @@ namespace Boxygen.Drawing.Objects {
 			Right.Gather(list);
 			Back.Gather(list);
 
-			//FlapLeft.Gather(list);
-			//FlapFront.Gather(list);
-			//FlapRight.Gather(list);
-			//FlapBack.Gather(list);
+			FlapLeft.Gather(list);
+			FlapFront.Gather(list);
+			FlapRight.Gather(list);
+			FlapBack.Gather(list);
 
 			list.PopTransform();
 		}

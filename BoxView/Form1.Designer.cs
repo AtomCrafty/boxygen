@@ -46,7 +46,7 @@ namespace BoxView {
 			this.Canvas.TabIndex = 0;
 			this.Canvas.Click += new System.EventHandler(this.Canvas_Click);
 			this.Canvas.Paint += new System.Windows.Forms.PaintEventHandler(this.PaintCanvas);
-			this.Canvas.MouseWheel += CanvasOnMouseWheel;
+			this.Canvas.MouseWheel += Canvas_MouseWheel;
 			// 
 			// Form1
 			// 

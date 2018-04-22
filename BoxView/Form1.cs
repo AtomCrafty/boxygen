@@ -59,7 +59,7 @@ namespace BoxView {
 		private void Canvas_Click(object sender, EventArgs e) {
 		}
 
-		private void CanvasOnMouseWheel(object sender, MouseEventArgs e) {
+		private void Canvas_MouseWheel(object sender, MouseEventArgs e) {
 			if(e.Delta > 0) {
 				Box1.Transform.Rotate(Vec3.UnitZ, 1);
 				Box2.Transform.Rotate(Vec3.UnitZ, -2);

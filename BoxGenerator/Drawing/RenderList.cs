@@ -12,6 +12,9 @@ namespace Boxygen.Drawing {
 		private readonly List<Primitive> _primitives = new List<Primitive>();
 		private readonly Stack<Transform> _transforms = new Stack<Transform>();
 
+		public bool RenderBackFaces = true;
+		public bool RenderNormals = true;
+
 		public RenderList() {
 			_transforms.Push(Transform.Identity);
 		}
@@ -19,24 +22,17 @@ namespace Boxygen.Drawing {
 		public void Draw(Graphics g, Vec2 center) {
 			var sb = new StringBuilder("Render order:\n\n");
 
-			foreach(var p in _primitives/*.Where(p => (p.Normal | Camera) > 0)*/) {
-				//p.Fill = new SolidBrush(Color.Aquamarine);
-				//Console.WriteLine(p.Normal.ViewDistance);
-			}
+			if(!RenderBackFaces) _primitives.RemoveAll(p => (p.Normal | Vec3.Camera) > 0);
+
 			// topologically sort
 			var list = OrderingGraph<Primitive>.Sort(_primitives, Primitive.OrderSelector);
 
 			foreach(var drawable in list) {
 				sb.AppendLine(drawable.ToString());
-				//Console.WriteLine(drawable.GetType().Name);
 				drawable.Draw(g, center);
 				//drawable.DrawNormals(g, center, false);
 			}
 			Console.WriteLine();
-
-			g.ResetTransform(); foreach(var drawable in list) {
-				//drawable.DrawNormals(g, center, true);
-			}
 			g.DrawString(sb.ToString(), SystemFonts.StatusFont, Brushes.White, 10, 10);
 		}
 
