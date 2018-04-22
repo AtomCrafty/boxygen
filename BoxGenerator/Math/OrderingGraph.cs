@@ -25,39 +25,6 @@ namespace Boxygen.Math {
 			if(!dst.Incoming.Remove(src)) throw new InvalidOperationException();
 		}
 
-		public void AddNodeBetween(Node parent, Node child, Node insert) {
-			RemoveEdge(parent, child);
-			AddEdge(parent, insert);
-			AddEdge(insert, child);
-		}
-
-		public void RemoveNodeAndReconnect(Node node) {
-			foreach(var parent in node.Incoming) {
-				foreach(var child in node.Outgoing) {
-					AddEdge(parent, child);
-				}
-			}
-
-			node.Incoming.ForEach(p => RemoveEdge(p, node));
-			node.Outgoing.ForEach(c => RemoveEdge(node, c));
-		}
-
-		public void EncloseParents(Node of, Node with) {
-			of.Incoming.ForEach(p => {
-				RemoveEdge(p, of);
-				AddEdge(p, with);
-			});
-			AddEdge(with, of);
-		}
-
-		public void EncloseChildren(Node of, Node with) {
-			of.Outgoing.ForEach(c => {
-				RemoveEdge(of, c);
-				AddEdge(with, c);
-			});
-			AddEdge(of, with);
-		}
-
 		public void AddNode(Node node) {
 			Nodes.Add(node);
 		}
@@ -71,6 +38,7 @@ namespace Boxygen.Math {
 		#endregion
 
 		public static List<T> Sort(List<T> list, Comparer<T> comp) {
+			const bool verbose = false;
 			var graph = new OrderingGraph<T>();
 
 			// top node; frontmost layer; drawn last
@@ -91,16 +59,20 @@ namespace Boxygen.Math {
 				// node must be an ancestor of these
 				var lowerBounds = graph.Nodes.Where(other => GetOrder(node, other) < 0).ToList();
 
-				Console.WriteLine("Processing: " + tag);
-				Console.WriteLine("Upper bounds: " + string.Join(", ", upperBounds));
-				Console.WriteLine("Lower bounds: " + string.Join(", ", lowerBounds));
+				if(verbose) {
+					Console.WriteLine("Processing: " + tag);
+					Console.WriteLine("Upper bounds: " + string.Join(", ", upperBounds));
+					Console.WriteLine("Lower bounds: " + string.Join(", ", lowerBounds));
+				}
 
 				upperBounds.ForEach(bound => graph.AddEdge(bound, node));
 				lowerBounds.ForEach(bound => graph.AddEdge(node, bound));
 			}
 
+#if DEBUG
 			Debug.Assert(front.GetDescendants().Distinct().Count() == list.Count + 1);
 			Debug.Assert(back.GetAncestors().Distinct().Count() == list.Count + 1);
+#endif
 
 			// topologically sort the graph
 			var l = new List<T>();
@@ -140,6 +112,8 @@ namespace Boxygen.Math {
 				Tag = tag;
 			}
 
+#if DEBUG
+
 			public List<Node> GetAncestors() {
 				var list = new List<Node>();
 				AddAncestors(list, false);
@@ -161,6 +135,8 @@ namespace Boxygen.Math {
 				if(includeSelf) list.Add(this);
 				Outgoing.ForEach(p => p.AddDescendants(list, true));
 			}
+
+#endif
 
 			public override string ToString() => Tag?.ToString() ?? "null";
 		}

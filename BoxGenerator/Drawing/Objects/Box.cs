@@ -89,11 +89,11 @@ namespace Boxygen.Drawing.Objects {
 		public override void Gather(RenderList list) {
 			list.PushTransform(Transform);
 
-			Right.Gather(list);
-			Back.Gather(list);
-			Bottom.Gather(list);
 			Left.Gather(list);
 			Front.Gather(list);
+			Bottom.Gather(list);
+			Right.Gather(list);
+			Back.Gather(list);
 
 			//FlapLeft.Gather(list);
 			//FlapFront.Gather(list);
