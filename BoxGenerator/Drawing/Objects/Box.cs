@@ -13,7 +13,7 @@ namespace Boxygen.Drawing.Objects {
 
 		public Face Back, Right, Bottom, Front, Left, FlapBack, FlapRight, FlapFront, FlapLeft;
 
-		public Vertex[] Vertecies;
+		public Vertex[] Vertices;
 
 		public Box(double width, double depth, double height, int palette, string name = "Box") {
 			Width = width;
@@ -27,21 +27,21 @@ namespace Boxygen.Drawing.Objects {
 					Color.FromArgb(unchecked((int)0xffff9999)),
 					Color.FromArgb(unchecked((int)0xffff6666)),
 					Color.FromArgb(unchecked((int)0xffff3333)),
-					Color.FromArgb(unchecked((int)0xffff1111))
+					Color.FromArgb(unchecked((int)0xffff0000))
 				} :
 				palette == 2 ? new[] {
 					Color.FromArgb(unchecked((int)0xffccccff)),
 					Color.FromArgb(unchecked((int)0xff9999ff)),
 					Color.FromArgb(unchecked((int)0xff6666ff)),
 					Color.FromArgb(unchecked((int)0xff3333ff)),
-					Color.FromArgb(unchecked((int)0xff1111ff))
+					Color.FromArgb(unchecked((int)0xff0000ff))
 				} :
 				palette == 3 ? new[] {
 					Color.FromArgb(unchecked((int)0xffccffcc)),
 					Color.FromArgb(unchecked((int)0xff99ff99)),
 					Color.FromArgb(unchecked((int)0xff66ff66)),
 					Color.FromArgb(unchecked((int)0xff33ff33)),
-					Color.FromArgb(unchecked((int)0xff11ff11))
+					Color.FromArgb(unchecked((int)0xff00ff00))
 				} : throw new ArgumentOutOfRangeException();
 
 			double sx = width / 2;
@@ -50,7 +50,7 @@ namespace Boxygen.Drawing.Objects {
 
 			Vertex v0, v1, v2, v3, v4, v5, v6, v7;
 
-			Vertecies = new[] {
+			Vertices = new[] {
 				v0 = new Vertex(new Vec3(-sx,  sy,  0)),
 				v1 = new Vertex(new Vec3(-sx, -sy,  0)),
 				v2 = new Vertex(new Vec3( sx, -sy,  0)),
@@ -61,11 +61,11 @@ namespace Boxygen.Drawing.Objects {
 				v7 = new Vertex(new Vec3( sx,  sy, sz)),
 			};
 
-			Back = new Face(v2, v1, v6) { Fill = new SolidBrush(colors[3]), Name = Name + " " + nameof(Back) };
-			Right = new Face(v3, v2, v7) { Fill = new SolidBrush(colors[4]), Name = Name + " " + nameof(Right) };
-			Bottom = new Face(v0, v1, v3) { Fill = new SolidBrush(colors[0]), Name = Name + " " + nameof(Bottom) };
-			Front = new Face(v0, v3, v4) { Fill = new SolidBrush(colors[1]), Name = Name + " " + nameof(Front) };
-			Left = new Face(v1, v0, v5) { Fill = new SolidBrush(colors[2]), Name = Name + " " + nameof(Left) };
+			Back = new Face(v2, v6, v1) { Fill = new SolidBrush(colors[3]), Name = Name + " " + nameof(Back) };
+			Right = new Face(v3, v7, v2) { Fill = new SolidBrush(colors[4]), Name = Name + " " + nameof(Right) };
+			Bottom = new Face(v0, v3, v1) { Fill = new SolidBrush(colors[0]), Name = Name + " " + nameof(Bottom) };
+			Front = new Face(v0, v4, v3) { Fill = new SolidBrush(colors[1]), Name = Name + " " + nameof(Front) };
+			Left = new Face(v1, v5, v0) { Fill = new SolidBrush(colors[2]), Name = Name + " " + nameof(Left) };
 
 			//FlapBack = new Face { BaseBrush = new SolidBrush(colors[3]), Name = Name + " " + nameof(FlapBack) };
 			//FlapRight = new Face { BaseBrush = new SolidBrush(colors[4]), Name = Name + " " + nameof(FlapRight) };

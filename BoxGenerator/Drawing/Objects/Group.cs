@@ -7,9 +7,7 @@ namespace Boxygen.Drawing.Objects {
 
 		public override void Gather(RenderList list) {
 			list.PushTransform(Transform);
-			foreach(var child in Children) {
-				child.Gather(list);
-			}
+			Children.ForEach(list.Visit);
 			list.PopTransform();
 		}
 

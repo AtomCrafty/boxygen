@@ -11,7 +11,7 @@ namespace Boxygen.Drawing.Primitives {
 		}
 
 		public override Vec3 CenterOfMass => O + (SpanA + SpanB) / 3;
-		public override Vec3[] Vertecies => new[] { O, A, B };
+		public override Vec3[] Vertices => new[] { O, A, B };
 		public override double Area => (SpanA & SpanB).Length / 2;
 
 		public override void Draw(Graphics g) {

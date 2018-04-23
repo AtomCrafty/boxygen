@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="Drawing\Objects\Box.cs" />
     <Compile Include="Drawing\Composite.cs" />
+    <Compile Include="Drawing\Objects\Deco\Decoration.cs" />
+    <Compile Include="Drawing\Objects\Deco\TextureDecoration.cs" />
+    <Compile Include="Drawing\Primitives\Stack.cs" />
     <Compile Include="Drawing\RenderList.cs" />
     <Compile Include="Drawing\Objects\Face.cs" />
     <Compile Include="Drawing\Objects\Group.cs" />

@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
+using Boxygen.Drawing.Objects.Deco;
 using Boxygen.Drawing.Primitives;
 using Boxygen.Math;
 
@@ -11,21 +13,29 @@ namespace Boxygen.Drawing.Objects {
 		public Vertex A;
 		public Vertex B;
 
+		public Vec3 FrontFacingNormal {
+			get {
+				var normal = ((A.Pos - O.Pos) & (B.Pos - O.Pos)).Normal;
+				return normal * System.Math.Sign(normal.ViewDistance);
+			}
+		}
+
+		public List<Decoration> Deco = new List<Decoration>();
+
 		public Brush Fill = Brushes.White; //new LinearGradientBrush(new Point(0, 0), new Point(1, 1), Palette.Cardboard(7), Palette.Cardboard(1));
 
 		public Face(Vertex o, Vertex a, Vertex b) {
 			O = o;
 			A = a;
 			B = b;
+			var tex = new Bitmap(@"D:\OneDrive\Dokumente\Stuff\opening-closed-cardboard-boxes-isometric-illustration-set-box-open-delivery-packaging-vector-96025389.jpg");
+			Deco.Add(new TextureDecoration(this, tex, Anchor.Custom, new Vec2(40, 40)) { Position = new Vec2(10, 10) });
 		}
 
-		// TODO temp
-		private static Bitmap texture = new Bitmap(@"C:\Users\mario\Pictures\stamps.PNG");
-
 		public override void Gather(RenderList list) {
-			//list.Add(new Quad { Fill = BaseBrush, Origin = Vertecies[0], SpanA = Vertecies[1] - Vertecies[0], SpanB = Vertecies[2] - Vertecies[0], Name = Name });
-			//list.Add(new Tri { Fill = BaseBrush, Origin = Vertecies[0], SpanA = Vertecies[1] - Vertecies[0], SpanB = Vertecies[2] - Vertecies[0], Name = Name });
-			list.Add(new Tex(O.Pos, A.Pos, B.Pos, texture) { Fill = Fill, Name = Name });
+			var stack = new Stack(new Quad(O.Pos, A.Pos, B.Pos) { Fill = Fill, Name = Name }, list);
+			Deco.ForEach(stack.RenderList.Visit);
+			list.Add(stack);
 		}
 	}
 }

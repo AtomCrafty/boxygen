@@ -15,7 +15,7 @@ namespace Boxygen.Drawing.Primitives {
 			var a = SpanA.Project();
 			var b = SpanB.Project();
 
-			var poly = new PointF[] { o, o + a, o + b };
+			var poly = new PointF[] { o, o + b, o + a };
 
 			g.DrawImage(Texture, poly);
 		}

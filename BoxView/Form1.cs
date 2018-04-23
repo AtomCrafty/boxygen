@@ -28,7 +28,7 @@ namespace BoxView {
 		public int FrameCounter;
 
 		private void PaintCanvas(object sender, PaintEventArgs e) {
-			SuperSampleFactor = 2f;
+			SuperSampleFactor = 0.5f;
 
 			int bufferWidth = (int)(Canvas.Width * SuperSampleFactor);
 			int bufferHeight = (int)(Canvas.Height * SuperSampleFactor);
@@ -40,7 +40,6 @@ namespace BoxView {
 				g.ScaleTransform(SuperSampleFactor, SuperSampleFactor);
 
 				var list = new RenderList();
-				//list.Transform.Scale(Extensions.SuperSampleFactor);
 				Box1.Gather(list);
 				Box2.Gather(list);
 				Box3.Gather(list);
@@ -48,6 +47,7 @@ namespace BoxView {
 				//bitmap.Save("test.png");
 
 				e.Graphics.InterpolationMode = SuperSampleFactor > 1 ? InterpolationMode.Bilinear : InterpolationMode.NearestNeighbor;
+				g.PixelOffsetMode = PixelOffsetMode.Half;
 				if(Math.Abs(SuperSampleFactor - 1) < 0.0001) e.Graphics.DrawImageUnscaled(bitmap, 0, 0);
 				else e.Graphics.DrawImage(bitmap, 0, 0, Canvas.Width, Canvas.Height);
 
@@ -60,7 +60,7 @@ namespace BoxView {
 					LastFrameCounter = FrameCounter;
 					FrameCounter = 0;
 				}
-				e.Graphics.DrawString($"~{LastFrameCounter} FPS", SystemFonts.StatusFont, Brushes.White, 105, 5);
+				e.Graphics.DrawString($"~{LastFrameCounter} FPS", SystemFonts.StatusFont, Brushes.White, e.ClipRectangle.Right - 5, 5, new StringFormat { Alignment = StringAlignment.Far });
 			}
 		}
 
