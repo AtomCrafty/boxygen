@@ -7,7 +7,7 @@ using Boxygen.Math;
 namespace Boxygen.Drawing {
 	public class RenderList : IDrawable, IEnumerable<Primitive> {
 
-		private readonly List<Primitive> _primitives = new List<Primitive>();
+		public readonly List<Primitive> Primitives = new List<Primitive>();
 		private readonly Stack<Transform> _transforms = new Stack<Transform>();
 
 		public bool RenderBackFaces = true;
@@ -19,13 +19,13 @@ namespace Boxygen.Drawing {
 		}
 
 		public List<Primitive> DrawInternal(Graphics g) {
-			var list = _primitives.ToList();
+			var list = Primitives.ToList();
 
 			// back face culling
 			if(!RenderBackFaces) list.RemoveAll(p => (p.Normal | Vec3.Camera) > 0);
 
 			// topologically sort
-			if(SortPrimitives) list = OrderingGraph<Primitive>.Sort(_primitives, Primitive.OrderSelector);
+			if(SortPrimitives) list = OrderingGraph<Primitive>.Sort(Primitives, Primitive.OrderSelector);
 
 			// draw polygons
 			foreach(var drawable in list) {
@@ -54,7 +54,7 @@ namespace Boxygen.Drawing {
 
 		public void Add(Primitive polygon) {
 			polygon.Transform(Transform);
-			_primitives.Add(polygon);
+			Primitives.Add(polygon);
 		}
 
 		public void Visit(Composite comp) {
@@ -63,8 +63,8 @@ namespace Boxygen.Drawing {
 
 		#region Forwarded methods
 
-		public IEnumerator<Primitive> GetEnumerator() => _primitives.GetEnumerator();
-		IEnumerator IEnumerable.GetEnumerator() => _primitives.GetEnumerator();
+		public IEnumerator<Primitive> GetEnumerator() => Primitives.GetEnumerator();
+		IEnumerator IEnumerable.GetEnumerator() => Primitives.GetEnumerator();
 
 		#endregion
 	}

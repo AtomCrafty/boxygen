@@ -1,8 +1,5 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using Boxygen.Drawing;
-using Boxygen.Drawing.Objects;
-using Boxygen.Math;
 
 namespace Boxygen {
 	public static class Program {

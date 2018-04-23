@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Linq;
 using Boxygen.Math;
 
 namespace Boxygen.Drawing.Primitives {
@@ -20,5 +21,7 @@ namespace Boxygen.Drawing.Primitives {
 		public override void Draw(Graphics g) {
 			RenderList.Draw(g);
 		}
+
+		public override string ToString() => "Stack {\n" + string.Join("\n", RenderList.Primitives.Select(p => "    " + p.ToString().Replace("\n", "\n    "))) + "\n}";
 	}
 }

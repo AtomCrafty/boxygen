@@ -36,7 +36,7 @@ namespace BoxView {
 			// DrawTimer
 			// 
 			this.DrawTimer.Enabled = true;
-			this.DrawTimer.Interval = 10;
+			this.DrawTimer.Interval = 250;
 			this.DrawTimer.Tick += new System.EventHandler(this.DrawTimer_Tick);
 			// 
 			// Canvas
@@ -69,7 +69,6 @@ namespace BoxView {
 
 		private Display Canvas;
 		private Timer DrawTimer;
-		public static float SuperSampleFactor = 1;
 	}
 }
 

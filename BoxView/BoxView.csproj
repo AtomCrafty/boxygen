@@ -82,7 +82,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BoxGenerator\Boxygen.csproj">
+    <ProjectReference Include="..\Boxygen\Boxygen.csproj">
       <Project>{7a7254f3-65c3-4f23-848c-5a83fd6ec3b0}</Project>
       <Name>Boxygen</Name>
     </ProjectReference>

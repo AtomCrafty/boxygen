@@ -29,7 +29,15 @@ namespace Boxygen.Drawing.Objects {
 			A = a;
 			B = b;
 			var tex = new Bitmap(@"D:\OneDrive\Dokumente\Stuff\opening-closed-cardboard-boxes-isometric-illustration-set-box-open-delivery-packaging-vector-96025389.jpg");
-			Deco.Add(new TextureDecoration(this, tex, Anchor.Custom, new Vec2(40, 40)) { Position = new Vec2(10, 10) });
+			Deco.Add(new TextureDecoration(this, tex, new Vec2(20, 10), Anchor.TopLeft));
+			Deco.Add(new TextureDecoration(this, tex, new Vec2(20, 10), Anchor.Top));
+			Deco.Add(new TextureDecoration(this, tex, new Vec2(20, 10), Anchor.TopRight));
+			Deco.Add(new TextureDecoration(this, tex, new Vec2(20, 10), Anchor.Left));
+			Deco.Add(new TextureDecoration(this, tex, new Vec2(20, 10), Anchor.Center));
+			Deco.Add(new TextureDecoration(this, tex, new Vec2(20, 10), Anchor.Right));
+			Deco.Add(new TextureDecoration(this, tex, new Vec2(20, 10), Anchor.BottomLeft));
+			Deco.Add(new TextureDecoration(this, tex, new Vec2(20, 10), Anchor.Bottom));
+			Deco.Add(new TextureDecoration(this, tex, new Vec2(20, 10), Anchor.BottomRight));
 		}
 
 		public override void Gather(RenderList list) {

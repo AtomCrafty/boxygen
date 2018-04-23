@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boxygen", "BoxGenerator\Boxygen.csproj", "{7A7254F3-65C3-4F23-848C-5A83FD6EC3B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boxygen", "Boxygen\Boxygen.csproj", "{7A7254F3-65C3-4F23-848C-5A83FD6EC3B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxView", "BoxView\BoxView.csproj", "{8F46B0A1-1A02-4009-A530-B2D02F6AA846}"
 EndProject
