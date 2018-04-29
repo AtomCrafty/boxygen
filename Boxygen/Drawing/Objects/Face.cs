@@ -34,7 +34,8 @@ namespace Boxygen.Drawing.Objects {
 		}
 
 		public override void Gather(RenderList list) {
-			var stack = new Stack(new Tri(O.Pos, A.Pos, B.Pos) { Material = new DirectedBrushMaterial(), Name = Name }, list);
+			var stack = new Stack(new Quad(O.Pos, A.Pos, B.Pos) { Material = new DirectedBrushMaterial(), Name = Name }, list);
+			//var stack = new Stack(new Tri(O.Pos, A.Pos + (B.Pos - O.Pos) / 2, B.Pos) { Material = new DirectedBrushMaterial(), Name = Name }, list);
 			Deco.ForEach(stack.RenderList.Visit);
 			list.Add(stack);
 		}

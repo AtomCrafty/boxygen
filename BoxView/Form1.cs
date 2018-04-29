@@ -72,8 +72,8 @@ namespace BoxView {
 
 			var light = Context.LightNormal.Project() * 50;
 			e.Graphics.DrawLine(Pens.Red, Canvas.Width - 50, 50, Canvas.Width - 50 + (float)light.X, 50 + (float)light.Y);
-			e.Graphics.DrawString("Render order:\n\n" + string.Join("\n", ordered), SystemFonts.StatusFont, Brushes.White, 5, 5);
-			e.Graphics.DrawString($"~{LastFrameCounter} FPS\n{SuperSampleFactor * SuperSampleFactor}x SSAA", SystemFonts.StatusFont, Brushes.White, e.ClipRectangle.Right - 5, 5, new StringFormat { Alignment = StringAlignment.Far });
+			e.Graphics.DrawString("Render order:\n\n" + string.Join("\n", ordered), SystemFonts.StatusFont, Brushes.Black, 5, 5);
+			e.Graphics.DrawString($"~{LastFrameCounter} FPS\n{SuperSampleFactor * SuperSampleFactor}x SSAA", SystemFonts.StatusFont, Brushes.Black, e.ClipRectangle.Right - 5, 5, new StringFormat { Alignment = StringAlignment.Far });
 		}
 
 		private List<Primitive> PaintCanvasInternal(Graphics g) {
@@ -90,7 +90,18 @@ namespace BoxView {
 			//Scene.Save("test.box");
 
 
-			var list = new RenderList();
+			var list = new RenderList {
+				new Quad(
+					new Vec3(-1000, -1000, 0),
+					new Vec3(-1000, 1000, 0),
+					new Vec3(1000, -1000, 0)
+				) {
+					CastsShadows = false,
+					Material = new DirectedBrushMaterial {
+						Color = Color.White
+					}
+				}
+			};
 			//Scene.Gather(list);
 			Box1.Gather(list);
 			//Box2.Gather(list);

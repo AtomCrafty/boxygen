@@ -24,6 +24,8 @@ namespace Boxygen.Drawing.Primitives {
 
 		public string Name;
 		public Material Material = Material.Default;
+		public bool ReceivesShadows = true;
+		public bool CastsShadows = true;
 
 		#endregion
 
