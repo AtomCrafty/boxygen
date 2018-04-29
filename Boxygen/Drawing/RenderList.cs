@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Boxygen.Drawing.Objects;
+using Boxygen.Drawing.Primitives;
 using Boxygen.Math;
 
 namespace Boxygen.Drawing {
@@ -18,7 +20,7 @@ namespace Boxygen.Drawing {
 			_transforms.Push(Transform.Identity);
 		}
 
-		public List<Primitive> DrawInternal(Graphics g) {
+		public List<Primitive> DrawInternal(RenderContext ctx, Graphics g) {
 			var list = Primitives.ToList();
 
 			// back face culling
@@ -30,15 +32,15 @@ namespace Boxygen.Drawing {
 			// draw polygons
 			foreach(var drawable in list) {
 				//sb.AppendLine(drawable.ToString());
-				drawable.Draw(g);
+				drawable.Draw(ctx, g);
 				if(RenderNormals) drawable.DrawNormals(g, false);
 			}
 
 			return list;
 		}
 
-		public void Draw(Graphics g) {
-			DrawInternal(g);
+		public void Draw(RenderContext ctx, Graphics g) {
+			DrawInternal(ctx, g);
 		}
 
 		public Transform Transform => _transforms.Peek();

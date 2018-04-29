@@ -2,6 +2,6 @@
 
 namespace Boxygen.Drawing {
 	public interface IDrawable {
-		void Draw(Graphics g);
+		void Draw(RenderContext ctx, Graphics g);
 	}
 }

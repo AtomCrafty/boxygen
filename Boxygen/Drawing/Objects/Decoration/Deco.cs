@@ -1,8 +1,8 @@
-﻿namespace Boxygen.Drawing.Objects.Deco {
-	public abstract class Decoration : Composite {
+﻿namespace Boxygen.Drawing.Objects.Decoration {
+	public abstract class Deco : Composite {
 		public Face Face;
 
-		protected Decoration(Face face) {
+		protected Deco(Face face) {
 			Face = face;
 		}
 	}
@@ -11,7 +11,7 @@
 		Horizontal, Vertical, Upward, Downward
 	}
 
-	public enum Anchor {
+	public enum DecoAnchor {
 		Custom,
 		TopLeft, Top, TopRight,
 		Left, Center, Right,

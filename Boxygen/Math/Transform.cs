@@ -2,27 +2,26 @@
 	public class Transform {
 		public static Transform Identity => new Transform();
 
-		private Matrix4 _matrix;
-
+		public Matrix4 Matrix;
 
 		public Transform() {
-			_matrix = Matrix4.Identity;
+			Matrix = Matrix4.Identity;
 		}
 
 		public Transform(Matrix4 matrix) {
-			_matrix = matrix;
+			Matrix = matrix;
 		}
 
 		public Transform(Transform copy) {
-			_matrix = new Matrix4(copy._matrix);
+			Matrix = new Matrix4(copy.Matrix);
 		}
 
 		public void Apply(Transform other) {
-			Apply(other._matrix);
+			Apply(other.Matrix);
 		}
 
 		public void Apply(Matrix4 matrix) {
-			_matrix *= matrix;
+			Matrix *= matrix;
 		}
 
 		public void Translate(Vec3 offset) {
@@ -51,7 +50,7 @@
 		}
 
 		public Vec3 TransformVector(Vec3 vec) {
-			return _matrix * vec;
+			return Matrix * vec;
 		}
 
 		public Transform Copy() {

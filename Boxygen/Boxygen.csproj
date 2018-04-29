@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -43,18 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\Materials\DirectedBrushMaterial.cs" />
+    <Compile Include="Drawing\Materials\FlatBrushMaterial.cs" />
+    <Compile Include="Drawing\Materials\Material.cs" />
     <Compile Include="Drawing\Objects\Box.cs" />
-    <Compile Include="Drawing\Composite.cs" />
-    <Compile Include="Drawing\Objects\Deco\Decoration.cs" />
-    <Compile Include="Drawing\Objects\Deco\TextureDecoration.cs" />
+    <Compile Include="Drawing\Objects\Composite.cs" />
+    <Compile Include="Drawing\Objects\Decoration\Deco.cs" />
+    <Compile Include="Drawing\Objects\Decoration\TextureDeco.cs" />
+    <Compile Include="Drawing\Objects\Scene.cs" />
     <Compile Include="Drawing\Primitives\Stack.cs" />
+    <Compile Include="Drawing\RenderContext.cs" />
     <Compile Include="Drawing\RenderList.cs" />
     <Compile Include="Drawing\Objects\Face.cs" />
     <Compile Include="Drawing\Objects\Group.cs" />
     <Compile Include="Drawing\Primitives\Tex.cs" />
     <Compile Include="Drawing\Primitives\Tri.cs" />
     <Compile Include="Drawing\Primitives\Quad.cs" />
-    <Compile Include="Drawing\Primitive.cs" />
+    <Compile Include="Drawing\Primitives\Primitive.cs" />
+    <Compile Include="Drawing\Materials\Texture.cs" />
     <Compile Include="Drawing\Vertex.cs" />
     <Compile Include="Drawing\IDrawable.cs" />
     <Compile Include="Math\Matrix4.cs" />
@@ -67,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

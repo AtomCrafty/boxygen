@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.Security.Cryptography;
+using Boxygen.Drawing.Primitives;
+using Newtonsoft.Json;
 
 namespace Boxygen.Math {
 	public struct Vec2 {
@@ -10,8 +13,8 @@ namespace Boxygen.Math {
 		public double X;
 		public double Y;
 
-		public double Length => System.Math.Sqrt(X * X + Y * Y);
-		public Vec2 Normal => this == Zero ? Zero : this / Length;
+		[JsonIgnore] public double Length => System.Math.Sqrt(X * X + Y * Y);
+		[JsonIgnore] public Vec2 Normal => this == Zero ? Zero : this / Length;
 
 		public Vec2(double v = 0) : this(v, v) { }
 		public Vec2(double x, double y) {
@@ -69,18 +72,20 @@ namespace Boxygen.Math {
 		public static Vec3 UnitY => new Vec3(0, 1, 0);
 		public static Vec3 UnitZ => new Vec3(0, 0, 1);
 		public static Vec3 Camera => new Vec3(-1, -1, -1);
+		public static Vec3 Invalid => new Vec3(double.NaN);
 
 		public double X, Y, Z;
 
-		public Vec2 XY => new Vec2(X, Y);
-		public Vec2 XZ => new Vec2(X, Z);
-		public Vec2 YX => new Vec2(Y, X);
-		public Vec2 YZ => new Vec2(Y, Z);
-		public Vec2 ZX => new Vec2(Z, X);
-		public Vec2 ZY => new Vec2(Z, Y);
+		[JsonIgnore] public Vec2 XY => new Vec2(X, Y);
+		[JsonIgnore] public Vec2 XZ => new Vec2(X, Z);
+		[JsonIgnore] public Vec2 YX => new Vec2(Y, X);
+		[JsonIgnore] public Vec2 YZ => new Vec2(Y, Z);
+		[JsonIgnore] public Vec2 ZX => new Vec2(Z, X);
+		[JsonIgnore] public Vec2 ZY => new Vec2(Z, Y);
 
-		public double Length => System.Math.Sqrt(X * X + Y * Y + Z * Z);
-		public Vec3 Normal => this == Zero ? Zero : this / Length;
+		[JsonIgnore] public double Length => System.Math.Sqrt(X * X + Y * Y + Z * Z);
+		[JsonIgnore] public Vec3 Normal => this == Zero ? Zero : this / Length;
+		[JsonIgnore] public bool IsValid => !double.IsNaN(X) && !double.IsNaN(Y) && !double.IsNaN(Z);
 
 		public Vec3(double v = 0) : this(v, v, v) { }
 		public Vec3(Vec2 v, double z = 0) : this(v.X, v.Y, z) { }
@@ -156,7 +161,26 @@ namespace Boxygen.Math {
 		};
 
 		public Vec2 Project() => X * ProjectionMatrix[0] + Y * ProjectionMatrix[1] + Z * ProjectionMatrix[2];
-		public double ViewDistance => X + Y + Z; // -(this | Camera);
+		[JsonIgnore] public double ViewDistance => X + Y + Z; // -(this | Camera);
+		public Vec3 FlipToFront() => ViewDistance < 0 ? -this : this;
+
+		public Vec3 ProjectOnto(Primitive p) {
+			var normal = p.Normal;
+			var diff = p.O - this;
+			double t = normal.X * diff.X + normal.Y * diff.Y + normal.Z * diff.Z;
+			return this + normal * t;
+		}
+
+		public Vec3 ProjectAlong(Primitive target, Vec3 direction) {
+			var normal = target.Normal;
+			double dot = normal | direction;
+
+			// line is parallel to plane
+			if(System.Math.Abs(dot) < 0.0001) return new Vec3(double.NaN);
+
+			// https://en.wikipedia.org/wiki/Line%E2%80%93plane_intersection#Algebraic_form
+			return ((target.O - this) | normal) / dot * direction + this;
+		}
 
 		#endregion
 	}
